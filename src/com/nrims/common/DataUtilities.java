@@ -208,6 +208,12 @@ public class DataUtilities {
         return( ret_value );
     }
 
+    public static float byte4ToFloat(byte[] bytes_in)
+    {
+        int ivalue = byte4ToInt(bytes_in);
+        return( Float.intBitsToFloat(ivalue) );
+    }
+
     public static double byte8ToDouble(byte[] bytes_in)
     {
         long lvalue = byte8ToLong(bytes_in);
@@ -242,9 +248,41 @@ public class DataUtilities {
         return( ret_arr );
     }
 
+    public static byte[] floatToByteArr(float fvalue)
+    {
+        return( intToByteArr( Float.floatToIntBits(fvalue) ) );
+    }
+
     public static byte[] doubleToByteArr(double dvalue)
     {
         return( longToByteArr( Double.doubleToRawLongBits(dvalue) ) );
     }
 
+    public static int intReverseByteOrder(int ivalue)
+    {
+        byte as_bytes[] = intToByteArr( ivalue );
+        reverseByteOrder( as_bytes );
+        return( byte4ToInt(as_bytes) );
+    }
+
+    public static long longReverseByteOrder(long lvalue)
+    {
+        byte as_bytes[] = longToByteArr( lvalue );
+        reverseByteOrder( as_bytes );
+        return( byte8ToLong (as_bytes));
+    }
+
+    public static float floatReverseByteOrder(float fvalue)
+    {
+        byte[] as_bytes = floatToByteArr( fvalue );
+        reverseByteOrder( as_bytes );
+        return( byte4ToFloat( as_bytes));
+    }
+
+    public static double doubleReverseByteOrder(double dvalue)
+    {
+        byte[] as_bytes = doubleToByteArr( dvalue );
+        reverseByteOrder( as_bytes );
+        return( byte8ToDouble( as_bytes ) );
+    }
 }
