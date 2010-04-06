@@ -82,6 +82,20 @@ public class RandomAccessEndianFile extends RandomAccessFile
         return( ret_value );
     }
 
+    public short readShortEndian()
+            throws IOException
+    {
+        short ret_value;
+        ret_value = super.readShort();
+        
+        if ( ! getBigEndianFlag() )
+        {
+            ret_value = DataUtilities.shortReverseByteOrder(ret_value);
+        }
+
+        return( ret_value );
+    }
+
     public int readIntEndian()
             throws IOException
     {

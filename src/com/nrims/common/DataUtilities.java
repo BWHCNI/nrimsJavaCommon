@@ -68,6 +68,55 @@ public class DataUtilities {
         }
     }
 
+    public static short byteToShort(byte b)
+    {
+        short ret_value = 0;
+
+        byte bit1_mask = (byte)0x01;
+        byte bit2_mask = (byte)0x02;
+        byte bit3_mask = (byte)0x04;
+        byte bit4_mask = (byte)0x08;
+        byte bit5_mask = (byte)0x10;
+        byte bit6_mask = (byte)0x20;
+        byte bit7_mask = (byte)0x40;
+        byte bit8_mask = (byte)0x80;
+
+        short bit1_mask_short = 0x0001;
+        short bit2_mask_short = 0x0002;
+        short bit3_mask_short = 0x0004;
+        short bit4_mask_short = 0x0008;
+        short bit5_mask_short = 0x0010;
+        short bit6_mask_short = 0x0020;
+        short bit7_mask_short = 0x0040;
+        short bit8_mask_short = 0x0080;
+
+        if ( (b & bit1_mask)  != 0 )
+            ret_value = (short)(ret_value | bit1_mask_short);
+
+        if ( (b & bit2_mask)  != 0 )
+            ret_value = (short)(ret_value | bit2_mask_short);
+
+        if ( (b & bit3_mask) != 0 )
+            ret_value = (short)(ret_value | bit3_mask_short);
+
+        if ( (b & bit4_mask)  != 0 )
+            ret_value = (short)(ret_value | bit4_mask_short);
+
+        if ( (b & bit5_mask)  != 0 )
+            ret_value = (short)(ret_value | bit5_mask_short);
+
+        if ( (b & bit6_mask)  != 0 )
+            ret_value = (short)(ret_value | bit6_mask_short);
+
+        if ( (b & bit7_mask)  != 0 )
+            ret_value = (short)(ret_value | bit7_mask_short);
+
+        if ( (b & bit8_mask)  != 0 )
+            ret_value = (short)(ret_value | bit8_mask_short);
+
+        return( ret_value );
+    }
+
     public static int byteToInt(byte b)
     {
         int ret_value = 0;
@@ -187,6 +236,28 @@ public class DataUtilities {
         return( ret_value );
     }
 
+    public static short byte2ToShort(byte[] bytes_in)
+    {
+        short ret_value = 0;
+        int i, j;
+        short curr_byte_short;
+
+        if ( bytes_in.length != 2 )
+            return( ret_value );
+
+        for (i = 0; i < 2; i++ )
+        {
+            curr_byte_short = byteToShort( bytes_in[i] );
+
+            for (j = 0; j < i; j++)
+                curr_byte_short = (short)(curr_byte_short << 8);
+
+            ret_value = (short)(ret_value | curr_byte_short);
+        }
+
+        return( ret_value );
+    }
+
     public static int byte4ToInt(byte[] bytes_in)
     {
         int ret_value = 0;
@@ -218,6 +289,16 @@ public class DataUtilities {
     {
         long lvalue = byte8ToLong(bytes_in);
         return( Double.longBitsToDouble(lvalue) );
+    }
+
+    public static byte[] shortToByteArr(short svalue)
+    {
+        byte ret_arr[] = new byte[2];
+
+        ret_arr[0] = (byte)(svalue & 0x00ff);
+        ret_arr[1] = (byte)((svalue & 0xff00) >> 8);
+
+        return( ret_arr );
     }
 
     public static byte[] intToByteArr(int intvalue)
@@ -256,6 +337,13 @@ public class DataUtilities {
     public static byte[] doubleToByteArr(double dvalue)
     {
         return( longToByteArr( Double.doubleToRawLongBits(dvalue) ) );
+    }
+
+    public static short shortReverseByteOrder(short svalue)
+    {
+        byte as_bytes[] = shortToByteArr( svalue );
+        reverseByteOrder( as_bytes );
+        return( byte2ToShort(as_bytes) );
     }
 
     public static int intReverseByteOrder(int ivalue)
