@@ -44,16 +44,32 @@ public class RandomAccessEndianFile extends RandomAccessFile
     /* public variables */
 
     /* public methods */
+
+    /**
+     * Sets the internal boolean flag for big endian to true for big endian,
+     * false for little endian.
+     * @param flag
+     */
     public void setBigEndianFlag(boolean flag)
     {
         big_endian_flag = flag;
     }
 
+    /**
+     * Returns big endian flag
+     * @return boolean big endian flag
+     */
     public boolean getBigEndianFlag()
     {
         return( big_endian_flag );
     }
 
+
+    /**
+     * Read a double value correcting for the proper endian structure.
+     * @return the read-in double
+     * @throws IOException
+     */
     public double readDoubleEndian()
             throws IOException
     {
@@ -68,6 +84,11 @@ public class RandomAccessEndianFile extends RandomAccessFile
         return( ret_value );
     }
 
+    /**
+     * Read a float correcting for the proper endian structure.
+     * @return read-in float
+     * @throws IOException
+     */
     public float readFloatEndian()
             throws IOException
     {
@@ -82,6 +103,11 @@ public class RandomAccessEndianFile extends RandomAccessFile
         return( ret_value );
     }
 
+    /**
+     * Read s short correcting for the proper endian structure.
+     * @return read-in short
+     * @throws IOException
+     */
     public short readShortEndian()
             throws IOException
     {
@@ -96,6 +122,11 @@ public class RandomAccessEndianFile extends RandomAccessFile
         return( ret_value );
     }
 
+    /**
+     * Read an int correcting for the proper endian structure.
+     * @return read-in int
+     * @throws IOException
+     */
     public int readIntEndian()
             throws IOException
     {
@@ -110,6 +141,11 @@ public class RandomAccessEndianFile extends RandomAccessFile
         return( ret_value );
     }
 
+    /**
+     * Read a long correcting for the proper endian structure.
+     * @return read-in long
+     * @throws IOException
+     */
     public long readLongEndian()
             throws IOException
     {
